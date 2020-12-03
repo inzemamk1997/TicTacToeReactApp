@@ -12,7 +12,7 @@ import {Card,CardBody,Container,Button,Col,Row} from "reactstrap";
 
 
 const itemArray = new Array(9).fill("empty");
-function App() {
+const App = () => {
 
   const [IsCross, setIsCross] = useState(false);
   const [WinMessage, setWinMessage] = useState("");
@@ -24,7 +24,34 @@ function App() {
   };
 
   const checkIsWinner = () => {
-    //
+    if(itemArray[0]!=="empty" && itemArray[0]===itemArray[1] && itemArray[0]===itemArray[2]){
+      setWinMessage(`${itemArray[0]} wins`);
+    }else if(itemArray[3]!=="empty" && itemArray[3]===itemArray[4] && itemArray[3]===itemArray[5]){
+      setWinMessage(`${itemArray[3]} wins`);
+    }else if(itemArray[6]!=="empty" && itemArray[6]===itemArray[7] && itemArray[6]===itemArray[8]){
+      setWinMessage(`${itemArray[6]} wins`);
+    }else if(itemArray[0]!=="empty" && itemArray[0]===itemArray[3] && itemArray[3]===itemArray[6]){
+      setWinMessage(`${itemArray[0]} wins`);
+    }else if(itemArray[1]!=="empty" && itemArray[1]===itemArray[4] && itemArray[1]===itemArray[7]){
+      setWinMessage(`${itemArray[1]} wins`);
+    }else if(itemArray[2]!=="empty" && itemArray[2]===itemArray[5] && itemArray[2]===itemArray[8]){
+      setWinMessage(`${itemArray[2]} wins`);
+    }else if(itemArray[0]!=="empty" && itemArray[0]===itemArray[4] && itemArray[0]===itemArray[8]){
+      setWinMessage(`${itemArray[0]} wins`);
+    }else if(itemArray[2]!=="empty" && itemArray[2]===itemArray[4] && itemArray[4]===itemArray[2]){
+      setWinMessage(`${itemArray[2]} wins`);
+    }else{
+      let isDraw = true;
+      for(let i = 0;i<itemArray.length;i++){
+        if(itemArray[i]==="empty"){
+          isDraw = false;
+          break;
+        }
+      }
+      if(isDraw){
+        setWinMessage("Game Draw");
+      }
+    }
   };
 
   const changeItem = (itemNumber) => {
@@ -38,6 +65,7 @@ function App() {
     }else{
       return toast("already filled",{type:"error"});
     }
+    checkIsWinner();
   };
 
   return (
